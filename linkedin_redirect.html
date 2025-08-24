@@ -8,6 +8,7 @@
             const code = urlParams.get('code');
             const state = urlParams.get('state');
             if (code && state) {
+                // This line redirects back to your app
                 window.location.href = `alumino://auth?code=${code}&state=${state}`;
             } else {
                 document.body.innerText = "Error: Could not retrieve authorization code.";
@@ -16,8 +17,6 @@
     </script>
 </head>
 <body>
-    <p>Redirecting back to the Alumino app...</p>
+    <p>Please wait, redirecting back to the Alumino app...</p>
 </body>
 </html>
-
-
