@@ -12,7 +12,7 @@
       if (code) {
         // Immediately redirect to your app’s custom URL scheme
         window.location.href =
-          'aluminoapp://auth?code=' + encodeURIComponent(code) +
+          'https://williamashishk.github.io/Alumino-registration-linkedin/linkedin-callback.html' + encodeURIComponent(code) +
           '&state=' + encodeURIComponent(state || '');
       } else {
         document.body.textContent = 'Missing authorization code.';
