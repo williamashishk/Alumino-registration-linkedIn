@@ -10,6 +10,7 @@ LinkedInVerifier/
 ├── LinkedInLoginView.swift            # OAuth authentication view
 ├── AppDelegate.swift                  # URL scheme handling
 ├── Info.plist                         # App configuration
+├── linkedin-callback.html             # Web callback page (host on your server)
 ├── README.md                          # Setup instructions
 └── ProjectStructure.md                # This file
 ```
@@ -36,8 +37,13 @@ LinkedInVerifier/
 4. **LinkedIn Configuration**
    - Update `LinkedInVerificationViewModel.swift` with your LinkedIn app credentials
    - Replace `YOUR_LINKEDIN_CLIENT_ID` and `YOUR_LINKEDIN_CLIENT_SECRET`
+   - Update the redirect URI to use your actual domain (e.g., `https://yourdomain.com/linkedin-callback`)
 
-5. **Build and Test**
+5. **Web Server Setup**
+   - Host `linkedin-callback.html` on your web server at the redirect URI path
+   - Ensure your domain has a valid SSL certificate
+
+6. **Build and Test**
    - Select a target device or simulator
    - Product → Build (⌘+B)
    - Product → Run (⌘+R)

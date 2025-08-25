@@ -109,7 +109,7 @@ struct LinkedInLoginView: View {
             .navigationBarHidden(true)
         }
         .sheet(isPresented: $showingSafari) {
-            SafariView(url: URL(string: "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_LINKEDIN_CLIENT_ID&redirect_uri=linkedinverifier://auth&scope=r_liteprofile&state=\(UUID().uuidString)")!)
+            SafariView(url: URL(string: "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=YOUR_LINKEDIN_CLIENT_ID&redirect_uri=https://yourdomain.com/linkedin-callback&scope=r_liteprofile&state=\(UUID().uuidString)")!)
         }
     }
 }

@@ -11,7 +11,7 @@ class LinkedInVerificationViewModel: ObservableObject {
     // LinkedIn API Configuration
     private let clientId = "YOUR_LINKEDIN_CLIENT_ID" // Replace with your actual LinkedIn Client ID
     private let clientSecret = "YOUR_LINKEDIN_CLIENT_SECRET" // Replace with your actual LinkedIn Client Secret
-    private let redirectURI = "linkedinverifier://auth"
+    private let redirectURI = "https://yourdomain.com/linkedin-callback" // Replace with your actual HTTPS domain
     private let scope = "r_liteprofile"
     
     private var authCode: String?
@@ -39,16 +39,27 @@ class LinkedInVerificationViewModel: ObservableObject {
     }
     
     func handleCallback(url: URL) {
-        guard url.scheme == "linkedinverifier" else { return }
-        
-        // Extract authorization code from URL
-        if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-           let codeItem = components.queryItems?.first(where: { $0.name == "code" }) {
-            authCode = codeItem.value
-            exchangeCodeForToken()
-        } else {
-            errorMessage = "Failed to get authorization code"
-            isLoading = false
+        // Handle both custom scheme and HTTPS redirect
+        if url.scheme == "linkedinverifier" {
+            // Extract authorization code from custom scheme URL
+            if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+               let codeItem = components.queryItems?.first(where: { $0.name == "code" }) {
+                authCode = codeItem.value
+                exchangeCodeForToken()
+            } else {
+                errorMessage = "Failed to get authorization code"
+                isLoading = false
+            }
+        } else if url.absoluteString.contains("linkedin-callback") {
+            // Extract authorization code from HTTPS redirect
+            if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+               let codeItem = components.queryItems?.first(where: { $0.name == "code" }) {
+                authCode = codeItem.value
+                exchangeCodeForToken()
+            } else {
+                errorMessage = "Failed to get authorization code"
+                isLoading = false
+            }
         }
     }
     

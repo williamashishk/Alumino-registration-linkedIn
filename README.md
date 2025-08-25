@@ -17,17 +17,24 @@ A native iOS mobile app built with SwiftUI that allows users to verify their Lin
 1. Go to [LinkedIn Developers](https://www.linkedin.com/developers/)
 2. Create a new app
 3. Get your **Client ID** and **Client Secret**
-4. Add `linkedinverifier://auth` as an authorized redirect URI
+4. Add `https://yourdomain.com/linkedin-callback` as an authorized redirect URI (replace `yourdomain.com` with your actual domain)
 5. Request access to the `r_liteprofile` scope
 
-### 2. Xcode Project Setup
+### 2. Web Server Setup
+
+1. **Host the HTML file**: Upload `linkedin-callback.html` to your web server at `https://yourdomain.com/linkedin-callback`
+2. **Verify HTTPS**: Ensure your domain has a valid SSL certificate
+3. **Test the page**: Visit `https://yourdomain.com/linkedin-callback` to ensure it loads correctly
+
+### 3. Xcode Project Setup
 
 1. Create a new Xcode project (iOS App with SwiftUI)
 2. Replace the default files with the provided Swift files
 3. Update the `Info.plist` with the provided configuration
 4. Replace `YOUR_LINKEDIN_CLIENT_ID` and `YOUR_LINKEDIN_CLIENT_SECRET` in `LinkedInVerificationViewModel.swift` with your actual credentials
+5. **Update the redirect URI**: Replace `https://yourdomain.com/linkedin-callback` with your actual domain in both `LinkedInVerificationViewModel.swift` and `LinkedInLoginView.swift`
 
-### 3. Build and Run
+### 4. Build and Run
 
 1. Select your target device or simulator
 2. Build and run the project
@@ -41,6 +48,7 @@ A native iOS mobile app built with SwiftUI that allows users to verify their Lin
 - `LinkedInLoginView.swift` - LinkedIn authentication interface
 - `AppDelegate.swift` - URL scheme handling for OAuth callbacks
 - `Info.plist` - App configuration and URL schemes
+- `linkedin-callback.html` - Web page that handles LinkedIn OAuth callback and redirects to the app
 
 ## OAuth Flow
 
@@ -48,10 +56,11 @@ A native iOS mobile app built with SwiftUI that allows users to verify their Lin
 2. Taps "Verify with LinkedIn" button
 3. App opens LinkedIn OAuth page in Safari
 4. User authorizes the app
-5. LinkedIn redirects back to the app with an authorization code
-6. App exchanges the code for an access token
-7. App fetches user profile using the LinkedIn API
-8. Profile details are displayed with verification status
+5. LinkedIn redirects to your HTTPS callback page (`https://yourdomain.com/linkedin-callback`)
+6. The HTML page automatically redirects to the iOS app using the custom URL scheme
+7. App receives the authorization code and exchanges it for an access token
+8. App fetches user profile using the LinkedIn API
+9. Profile details are displayed with verification status
 
 ## API Endpoints Used
 
