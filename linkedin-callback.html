@@ -10,9 +10,9 @@
       var code = params.get('code');
       var state = params.get('state');
       if (code) {
-        // Immediately redirect to your app’s custom URL scheme
+        // Redirect to your app’s custom scheme (change aluminoapp to your scheme)
         window.location.href =
-          'https://williamashishk.github.io/Alumino-registration-linkedin/linkedin-callback.html' + encodeURIComponent(code) +
+          'aluminoapp://auth?code=' + encodeURIComponent(code) +
           '&state=' + encodeURIComponent(state || '');
       } else {
         document.body.textContent = 'Missing authorization code.';
@@ -21,6 +21,6 @@
   </script>
 </head>
 <body>
-  Redirecting…
+  Redirecting back to the app…
 </body>
 </html>
